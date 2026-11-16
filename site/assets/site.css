@@ -1,0 +1,248 @@
+@layer base, theme, layout, components, preferences;
+@layer base {
+  html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  :where(body, header, main, footer, section, div, p, h1, article, span, a, details, summary, table, caption, th, td, svg) {
+    box-sizing: inherit;
+  }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--page);
+    font-family: var(--serif);
+    line-height: 1.5;
+  }
+  a {
+    color: inherit;
+    text-underline-offset: .3em;
+  }
+  a:hover {
+    color: var(--ink);
+  }
+  :where(a, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--vertical);
+    outline-offset: 5px;
+  }
+}
+@layer theme {
+  :root {
+    color-scheme: dark;
+    --page: #080a09;
+    --key-face: #080a09;
+    --ink: #f0f0e6;
+    --muted: #969c94;
+    --rule: #444b42;
+    --horizontal: #ff7364;
+    --vertical: #62bcdf;
+    --left: #91bd77;
+    --dot: #ff9a45;
+    --fold: #f0df4f;
+    --extra: #858883;
+    --ring: #bb6e65;
+    --scrollbar-thumb: #737d70;
+    --serif: "SimSun", "宋体", "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  }
+  html {
+    background: var(--page);
+  }
+}
+@layer layout {
+  .page-header, main, .page-footer {
+    max-inline-size: 103.75rem;
+    margin-inline: auto;
+  }
+  .page-header {
+    padding: 2.2rem 2.625rem 1.7rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: .75rem;
+  }
+  .heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1.125rem;
+  }
+  .proofreading {
+    margin-inline: 2.625rem;
+  }
+  .page-footer {
+    padding: 1rem 2.625rem 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .75rem;
+    color: var(--muted);
+    font-size: .75rem;
+    letter-spacing: .125em;
+  }
+}
+@layer components {
+  h1 {
+    font-family: var(--serif);
+    font-size: 1.9375rem;
+    font-weight: 400;
+    letter-spacing: .1em;
+    margin: 0;
+  }
+  .edition {
+    color: var(--muted);
+    font-size: .8125rem;
+    letter-spacing: .125em;
+  }
+  .record-link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 1.5rem;
+    text-decoration: none;
+  }
+  .record-link {
+    color: var(--muted);
+    font-size: .875rem;
+  }
+  .record-link span {
+    margin-inline-start: .5rem;
+  }
+  .proofreading summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 1.4375rem;
+    font-size: .875rem;
+    color: var(--muted);
+  }
+  .proofreading summary::-webkit-details-marker {
+    display: none;
+  }
+  .expand-icon {
+    font-size: 1.2rem;
+  }
+  .proofreading[open] .expand-icon {
+    rotate: 45deg;
+  }
+  .proofreading-content {
+    max-inline-size: 65rem;
+    padding-block-end: .75rem;
+    font-size: .9375rem;
+    line-height: 1.9;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .proofreading-content > p {
+    max-inline-size: 65ch;
+    margin: 0 0 1.375rem;
+  }
+  .table-scroll {
+    overflow-x: auto;
+    margin-block-end: 1.25rem;
+  }
+  table {
+    border-collapse: collapse;
+    inline-size: 100%;
+    font-size: .875rem;
+    min-inline-size: 33.75rem;
+  }
+  caption {
+    text-align: start;
+    padding-block-end: .75rem;
+    color: var(--ink);
+  }
+  th, td {
+    text-align: start;
+    border-block-end: 1px solid var(--rule);
+    padding: .75rem 1rem .75rem 0;
+    vertical-align: top;
+  }
+  th {
+    font-weight: 500;
+  }
+  td:first-child {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    inline-size: 4.375rem;
+  }
+  .page-footer a {
+    min-block-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  .sources {
+    color: var(--muted);
+    font-size: .8125rem;
+  }
+  .no-script {
+    margin: 1.5rem;
+    color: var(--horizontal);
+  }
+}
+@layer preferences {
+  @media (max-width: 74.375em) {
+    .page-header {
+      padding: 1.7rem 1.5rem 1.25rem;
+    }
+    .proofreading {
+      margin-inline: 1.5rem;
+    }
+    .page-footer {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (max-width: 37.5em) {
+    h1 {
+      font-size: 1.6875rem;
+    }
+    .heading {
+      gap: .625rem;
+    }
+    .edition {
+      font-size: .75rem;
+    }
+    .page-header, .page-footer {
+      padding-inline: 1.25rem;
+    }
+    .proofreading {
+      margin-inline: 1.25rem;
+    }
+  }
+  @media (pointer: coarse) {
+    .record-link, .document-link a {
+      min-block-size: 2.75rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  @media (forced-colors: active) {
+    :root {
+      --page: Canvas;
+      --key-face: Canvas;
+      --ink: CanvasText;
+      --muted: CanvasText;
+      --rule: CanvasText;
+      --ring: CanvasText;
+      --horizontal: CanvasText;
+      --vertical: CanvasText;
+      --left: CanvasText;
+      --dot: CanvasText;
+      --fold: CanvasText;
+      --extra: GrayText;
+      --scrollbar-thumb: ButtonText;
+    }
+    a {
+      color: LinkText;
+    }
+  }
+}
+
+@layer layout {
+  .page-header nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+}

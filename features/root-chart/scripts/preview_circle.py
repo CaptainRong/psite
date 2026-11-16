@@ -1,7 +1,7 @@
+from font_source import ROOT
 import sys
 from pathlib import Path
 from PIL import Image
-sys.path.insert(0, str(Path(__file__).parent / 'pdf-lib'))
 import pymupdf
 
 
@@ -14,7 +14,7 @@ def add_circle(letter, key, glyphs):
     document = pymupdf.open(stream=svg.encode(), filetype='svg')
     pixmap = document[0].get_pixmap()
     circle = Image.frombytes('RGB', [pixmap.width,pixmap.height], pixmap.samples)
-    target = Path(__file__).parent/f'key-{letter}.png'
+    target = ROOT/f'key-{letter}.png'
     image=Image.open(target)
     image.paste(circle, (200,image.height-100))
     image.save(target)

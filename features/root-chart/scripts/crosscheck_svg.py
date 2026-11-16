@@ -1,11 +1,11 @@
+from font_source import ROOT
 import json
 import math
 import sys
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).parent/'pdf-lib'))
 import pymupdf
 
-base=Path(__file__).parent
+base=ROOT
 for letter in 'QEANHDL':
     data=json.loads((base/f'key-{letter}.json').read_text(encoding='utf8'))
     glyphs=list(data['glyphs'].items())

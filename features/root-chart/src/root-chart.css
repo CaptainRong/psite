@@ -1,0 +1,258 @@
+@layer base, theme, layout, components, preferences;
+
+.root-chart {
+  color: var(--ink);
+  font-family: var(--serif);
+}
+@layer theme {
+  :where(.root-chart) [data-zone="horizontal"] { --zone-color: var(--horizontal); }
+  :where(.root-chart) [data-zone="vertical"] { --zone-color: var(--vertical); }
+  :where(.root-chart) [data-zone="left"] { --zone-color: var(--left); }
+  :where(.root-chart) [data-zone="dot"] { --zone-color: var(--dot); }
+  :where(.root-chart) [data-zone="fold"] { --zone-color: var(--fold); }
+  :where(.root-chart) [data-zone="extra"] { --zone-color: var(--extra); }
+}
+@layer layout {
+  :where(.root-chart) .chart-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding: 0 1.5rem .75rem;
+    scrollbar-color: var(--scrollbar-thumb) var(--page);
+    scrollbar-width: auto;
+  }
+  :where(.root-chart) .chart-canvas {
+    container-type: inline-size;
+    min-inline-size: 70rem;
+    padding: 0 .5rem 0 4rem;
+    --gap: 1.25cqw;
+    --key-width: 8.875cqw;
+  }
+  :where(.root-chart) .top-labels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-block-end: 1.375rem;
+  }
+  :where(.root-chart) .key-row {
+    display: flex;
+    gap: var(--gap);
+    inline-size: max-content;
+    position: relative;
+    margin-block-end: 2cqw;
+  }
+  :where(.root-chart) .key-row:nth-child(2) {
+    margin-left: calc(var(--key-width) * .35);
+  }
+  :where(.root-chart) .key-row:nth-child(3) {
+    margin-left: calc(var(--key-width) * .7);
+    margin-block-end: 0;
+  }
+  :where(.root-chart) .key-row .side-label {
+    position: absolute;
+    left: -4.3rem;
+    top: 40%;
+    letter-spacing: 0;
+  }
+  :where(.root-chart) .key-row .right-label {
+    flex: 0 0 calc(var(--key-width) * 2 + var(--gap));
+    align-self: center;
+    margin-left: 1.5rem;
+  }
+  :where(.root-chart) .bottom-labels {
+    margin-left: 17%;
+    inline-size: 46%;
+    padding-block-start: 1.5rem;
+  }
+  :where(.root-chart) .reading-guide {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    margin: 2rem 2.625rem 0;
+    padding-block-end: 1.625rem;
+    border-block-end: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: .875rem;
+    line-height: 1.9;
+  }
+}
+@layer components {
+  :where(.root-chart) .reading-guide > a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 1.5rem;
+    text-decoration: none;
+  }
+  :where(.root-chart) .zone-title {
+    display: block;
+    color: var(--zone-color);
+    font-family: var(--serif);
+    font-size: clamp(2.25rem, 1.5rem + 2dvw, 3.8rem);
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: .08em;
+    line-height: 1.2;
+  }
+  :where(.root-chart) .key-row .side-label {
+    font-size: clamp(1.5rem, .9rem + .9dvw, 2rem);
+  }
+  :where(.root-chart) .keycap {
+    container-type: inline-size;
+    flex: 0 0 var(--key-width);
+    min-block-size: calc(var(--key-width) / .82);
+    border: 3px solid var(--zone-color);
+    border-radius: 1.375rem;
+    background: var(--key-face);
+    position: relative;
+    min-inline-size: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--zone-color) 14%, transparent);
+  }
+  :where(.root-chart) .keycap::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border: 1px solid color-mix(in srgb, var(--zone-color) 18%, transparent);
+    border-radius: 1.0625rem;
+    pointer-events: none;
+  }
+  :where(.root-chart) .roots {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 3cqw;
+    padding: 8cqw 7cqw 0;
+  }
+  :where(.root-chart) .root-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    column-gap: 2cqw;
+  }
+  :where(.root-chart) .root {
+    font-family: var(--serif);
+    font-size: clamp(1.0625rem, 17.5cqw, 1.625rem);
+    line-height: 1.25;
+    display: grid;
+    place-items: center;
+    min-block-size: 1.25em;
+    min-inline-size: 0;
+    font-weight: 400;
+  }
+  :where(.root-chart) .root-row:first-child {
+    grid-template-columns: 1.45fr repeat(3, minmax(0, 1fr));
+  }
+  :where(.root-chart) .root-row:first-child .root:first-child {
+    font-size: clamp(1.5rem, 26cqw, 2.375rem);
+  }
+  :where(.root-chart) .root-text {
+    display: block;
+    inline-size: 1em;
+    text-align: left;
+    line-height: 1;
+    translate: var(--ink-x, 0) var(--ink-y, 0);
+  }
+  :where(.root-chart) .glyph {
+    display: block;
+    inline-size: 1em;
+    block-size: 1em;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+  :where(.root-chart) .key-bottom {
+    margin-block-start: auto;
+    padding: 8cqw 6cqw 6cqw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: end;
+    gap: 1cqw;
+    flex-shrink: 0;
+  }
+  :where(.root-chart) .key-letter, :where(.root-chart) .short-code {
+    font-size: clamp(1.5rem, 28cqw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  :where(.root-chart) .key-letter {
+    color: var(--zone-color);
+    font-family: var(--serif);
+    text-box: trim-both cap alphabetic;
+  }
+  :where(.root-chart) .short-code {
+    font-family: var(--serif);
+    text-align: right;
+  }
+  :where(.root-chart) .stroke-root {
+    border: 1.5px solid var(--ring);
+    border-radius: 50%;
+    inline-size: clamp(1.4rem, 25cqw, 2.25rem);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    align-self: center;
+  }
+  :where(.root-chart) .stroke-root .glyph {
+    inline-size: 80%;
+    block-size: 80%;
+  }
+  :where(.root-chart) .reading-guide p {
+    margin: 0;
+  }
+  :where(.root-chart) .stroke-ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 1.4em;
+    block-size: 1.4em;
+    line-height: 1;
+    margin-inline: .75em .35em;
+    border: 1px solid var(--ring);
+    border-radius: 50%;
+    color: var(--ink);
+    font-family: var(--serif);
+  }
+  :where(.root-chart) .scroll-hint {
+    margin: 0 1.5rem 1.125rem;
+    color: var(--muted);
+    font-size: .875rem;
+  }
+  :where(.root-chart) .scroll-hint[hidden] {
+    display: none;
+  }
+  :where(.root-chart) .scroll-hint span {
+    padding-inline-start: .5em;
+  }
+}
+@layer preferences {
+  @media (max-width: 74.375em) {
+    :where(.root-chart) .chart-scroll {
+      padding-inline: 1rem;
+    }
+    :where(.root-chart) .reading-guide {
+      margin: 1.5625rem 1.5rem 0;
+    }
+  }
+  @media (max-width: 37.5em) {
+    :where(.root-chart) .reading-guide p {
+      max-inline-size: 21.25rem;
+    }
+    :where(.root-chart) .stroke-ring {
+      margin-inline-start: .35em;
+    }
+    :where(.root-chart) .reading-guide, :where(.root-chart) .scroll-hint {
+      margin-inline: 1.25rem;
+    }
+  }
+  @media (pointer: coarse) {
+    :where(.root-chart) .reading-guide > a {
+      min-block-size: 2.75rem;
+    }
+  }
+  @media (forced-colors: active) {
+    :where(.root-chart) .keycap {
+      box-shadow: none;
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "tag": "songti-v1",
+  "sha256": "d2b6a9f190134ff20792564b41aee55f14a53eb8624a3ec9908feab13a0521c5",
+  "keys": {
+    "Q": {
+      "roots": 15,
+      "short": "我"
+    },
+    "W": {
+      "roots": 5,
+      "short": "人"
+    },
+    "E": {
+      "roots": 12,
+      "short": "有"
+    },
+    "R": {
+      "roots": 9,
+      "short": "的"
+    },
+    "T": {
+      "roots": 8,
+      "short": "和"
+    },
+    "Y": {
+      "roots": 9,
+      "short": "主"
+    },
+    "U": {
+      "roots": 11,
+      "short": "产"
+    },
+    "I": {
+      "roots": 10,
+      "short": "不"
+    },
+    "O": {
+      "roots": 5,
+      "short": "为"
+    },
+    "P": {
+      "roots": 6,
+      "short": "这"
+    },
+    "A": {
+      "roots": 13,
+      "short": "工"
+    },
+    "S": {
+      "roots": 4,
+      "short": "要"
+    },
+    "D": {
+      "roots": 11,
+      "short": "在"
+    },
+    "F": {
+      "roots": 9,
+      "short": "地"
+    },
+    "G": {
+      "roots": 5,
+      "short": "一"
+    },
+    "H": {
+      "roots": 10,
+      "short": "上"
+    },
+    "J": {
+      "roots": 4,
+      "short": "是"
+    },
+    "K": {
+      "roots": 1,
+      "short": "中"
+    },
+    "L": {
+      "roots": 11,
+      "short": "国"
+    },
+    "Z": {
+      "roots": 0,
+      "short": ""
+    },
+    "X": {
+      "roots": 8,
+      "short": "经"
+    },
+    "C": {
+      "roots": 6,
+      "short": "以"
+    },
+    "V": {
+      "roots": 7,
+      "short": "发"
+    },
+    "B": {
+      "roots": 12,
+      "short": "了"
+    },
+    "N": {
+      "roots": 17,
+      "short": "民"
+    },
+    "M": {
+      "roots": 8,
+      "short": "同"
+    }
+  }
+}

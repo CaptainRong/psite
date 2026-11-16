@@ -1,15 +1,19 @@
 """Local Song glyph inspection and fragment extraction for this revision."""
 import json
+import os
 from pathlib import Path
 from fontTools.ttLib import TTFont
 from fontTools.pens.basePen import BasePen
 from PIL import Image, ImageDraw, ImageFont
 
-FONT = TTFont(r"C:\Windows\Fonts\simsun.ttc", fontNumber=0)
+FONT_PATH = Path(os.environ.get("WUBI_FONT", r"C:\Windows\Fonts\simsun.ttc"))
+FONT = TTFont(FONT_PATH, fontNumber=0)
 GLYPHS = FONT.getGlyphSet()
 CMAP = FONT.getBestCmap()
 SCALE = 64 / FONT['head'].unitsPerEm
-ROOT = Path(__file__).resolve().parent
+REPO_ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(os.environ.get("WUBI_OUTPUT", REPO_ROOT / ".qa" / "glyphs")).resolve()
+ROOT.mkdir(parents=True, exist_ok=True)
 
 
 class PolygonPen(BasePen):
@@ -99,7 +103,7 @@ def inspect(chars, filename='font-inspect.png'):
     cell = 320
     image = Image.new('RGB',(cell*len(chars),cell+100),'#fff')
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype(r'C:\Windows\Fonts\simsun.ttc',24)
+    font = ImageFont.truetype(str(FONT_PATH),24)
     for column,char in enumerate(chars):
         polygons=contours(char)
         for unit in range(0,65,8):
@@ -150,14 +154,14 @@ def write_key(letter, key, glyphs):
                     mask=ImageChops.logical_or(mask,path_mask)
                 image.paste('#f0f0e6',(0,0),mask)
             else:
-                font=ImageFont.truetype(r'C:\Windows\Fonts\simsun.ttc',em)
+                font=ImageFont.truetype(str(FONT_PATH),em)
                 mask=Image.new('L',(em*3,em*3))
                 ImageDraw.Draw(mask).text((em,em),value,font=font,fill=255)
                 box=mask.getbbox()
                 if box:
                     ink=mask.crop(box)
                     image.paste('#f0f0e6',(round(cx-ink.width/2),round(cy-ink.height/2)),ink)
-    draw.text((30,image.height-90),letter,font=ImageFont.truetype(r'C:\Windows\Fonts\simsun.ttc',60),fill='#91bd77')
+    draw.text((30,image.height-90),letter,font=ImageFont.truetype(str(FONT_PATH),60),fill='#91bd77')
     image.save(ROOT/f'key-{letter}.png')
 
 

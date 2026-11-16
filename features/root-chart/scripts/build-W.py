@@ -1,5 +1,6 @@
 import sys
-sys.path.insert(0, '.qa')
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from font_source import contours, bounds, write_key
 
 # 祭的前三条轮廓为上部左右两块，第三条为右块内白。

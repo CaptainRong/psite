@@ -1,10 +1,11 @@
+from font_source import ROOT
 from pathlib import Path
 import re
 from PIL import Image, ImageDraw, ImageChops
 
 
 def preview_circle(letter, glyph):
-    path = Path(__file__).resolve().parent / f'key-{letter}.png'
+    path = ROOT / f'key-{letter}.png'
     image = Image.open(path).convert('RGB')
     cx,cy = image.width//2,image.height-60
     size = 66

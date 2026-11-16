@@ -4,8 +4,8 @@ from fontTools.pens.boundsPen import BoundsPen
 from fontTools.svgLib.path import parse_path
 from font_source import CMAP
 
-root = Path(__file__).resolve().parent.parent
-script = (root / 'wubi-data.js').read_text(encoding='utf-8')
+root = Path(__file__).resolve().parents[3]
+script = (root / 'features/root-chart/data/wubi86.js').read_text(encoding='utf-8')
 data = json.loads(script.split('window.WUBI_DATA = ', 1)[1].rstrip(';\n'))
 expected = dict(zip('QWERTYUIOPASDFGHJKLZXCVBNM',
                     [15,5,12,9,8,9,11,10,5,6,13,4,11,9,5,10,4,1,11,0,8,6,7,12,17,8]))

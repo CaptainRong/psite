@@ -1,6 +1,7 @@
 import re
 import sys
-sys.path.insert(0,'.qa')
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from font_source import fragment, write_key
 from preview_circle import add_circle
 
