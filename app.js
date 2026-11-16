@@ -30,34 +30,12 @@
     if (value.startsWith("@")) {
       root.append(makeGlyph(value.slice(1)));
     } else {
-      root.textContent = value;
+      const text = document.createElement("span");
+      text.className = "root-text";
+      text.textContent = value;
+      root.append(text);
     }
     return root;
-  }
-
-  function makeStick() {
-    // 沿用原稿灰框里的像素棍彩蛋，使用本地矢量保持离线可用。
-    const svg = document.createElementNS(svgNamespace, "svg");
-    svg.setAttribute("viewBox", "0 0 100 130");
-    svg.setAttribute("class", "stick-art");
-    svg.setAttribute("aria-hidden", "true");
-    for (let step = 0; step < 13; step += 1) {
-      const rect = document.createElementNS(svgNamespace, "rect");
-      rect.setAttribute("x", 9 + step * 5.5);
-      rect.setAttribute("y", 110 - step * 7);
-      rect.setAttribute("width", "8");
-      rect.setAttribute("height", "10");
-      rect.setAttribute("fill", step % 3 === 0 ? "#82603a" : "#544329");
-      svg.append(rect);
-      const highlight = document.createElementNS(svgNamespace, "rect");
-      highlight.setAttribute("x", 10 + step * 5.5);
-      highlight.setAttribute("y", 110 - step * 7);
-      highlight.setAttribute("width", "3");
-      highlight.setAttribute("height", "4");
-      highlight.setAttribute("fill", "#9a7845");
-      svg.append(highlight);
-    }
-    return svg;
   }
 
   function makeKey(key) {
@@ -65,9 +43,11 @@
     card.className = "keycap";
     card.dataset.key = key.key;
     card.dataset.zone = key.zone;
-    card.setAttribute("aria-label", key.easterEgg
-      ? "Z，彩蛋，无辜的老棍"
-      : `${key.key}，${data.zones[key.zone].name}，键名${key.name}，一级简码${key.short}`);
+    if (key.key === "Z") {
+      card.setAttribute("aria-hidden", "true");
+      return card;
+    }
+    card.setAttribute("aria-label", `${key.key}，${data.zones[key.zone].name}，键名${key.name}，一级简码${key.short}`);
 
     const roots = document.createElement("div");
     roots.className = "roots";
@@ -78,15 +58,6 @@
       roots.append(row);
     }
     card.append(roots);
-
-    if (key.easterEgg) {
-      card.classList.add("easter-egg");
-      card.append(makeStick());
-      const caption = document.createElement("span");
-      caption.className = "easter-caption";
-      caption.textContent = "无辜的老棍";
-      card.append(caption);
-    }
 
     const bottom = document.createElement("div");
     bottom.className = "key-bottom";
@@ -131,6 +102,7 @@
     const overflows = chartScroll.scrollWidth > chartScroll.clientWidth + 1;
     scrollHint.hidden = !overflows;
     chartScroll.tabIndex = overflows ? 0 : -1;
+    chartScroll.setAttribute("aria-describedby", overflows ? "reading-guide scroll-hint" : "reading-guide");
     tableScroll.tabIndex = tableScroll.scrollWidth > tableScroll.clientWidth + 1 ? 0 : -1;
   }
   const resizeObserver = new ResizeObserver(updateOverflow);
@@ -139,13 +111,30 @@
   resizeObserver.observe(tableScroll);
   updateOverflow();
 
+  // 按实际墨迹中心校准偏旁，消除钅、亻等字在全角字面中的偏左留白。
+  document.fonts.ready.then(() => {
+    const context = document.createElement("canvas").getContext("2d");
+    for (const text of document.querySelectorAll(".root-text")) {
+      context.font = `64px ${getComputedStyle(text).fontFamily}`;
+      const metrics = context.measureText(text.textContent);
+      const inkCenter = (metrics.actualBoundingBoxRight - metrics.actualBoundingBoxLeft) / 2;
+      const ascent = metrics.fontBoundingBoxAscent ?? 56;
+      const descent = metrics.fontBoundingBoxDescent ?? 8;
+      const baseline = (64 - ascent - descent) / 2 + ascent;
+      const inkMiddle = baseline + (metrics.actualBoundingBoxDescent - metrics.actualBoundingBoxAscent) / 2;
+      text.style.setProperty("--ink-x", `${(32 - inkCenter) / 64}em`);
+      text.style.setProperty("--ink-y", `${(32 - inkMiddle) / 64}em`);
+    }
+    updateOverflow();
+  });
+
   const corrections = [
-    ["R / D", "𠂆与厂的小字形接近", "分别画清撇起笔与横起笔。"],
-    ["F", "雨旁的小形难以辨认", "明确绘为革字底。"],
-    ["H / E", "具字头与且字片形相近", "具字头保留底横，且字片形去底横。"],
-    ["K", "川与圈内三竖共用一个位置", "川列入字根栏，圈内单列三竖。"],
-    ["N", "已、己、巳的手写开口接近", "三字分列，键名采用已。"],
-    ["P / X", "片形容易被看成完整偏旁", "摘礻衤、母外框按片形绘制。"]
+    ["全部键位", "成字与片形的笔形、留白不一致", "采用宋体，逐项校准字形与间距。"],
+    ["Q / W / E", "犬旁、登字头、豕去顶横等片形有误", "按逐键清单修正并补齐变体。"],
+    ["U / I", "圈内两点、三点方向有误", "按冫与氵的方向纵向排列。"],
+    ["J / K", "字根区与圈内笔画重复或有误", "J 列日、早、刂、虫，K 圈内列川。"],
+    ["A / B / N 等", "印刷变体遗漏", "逐项登记并补绘。"],
+    ["Z", "键内含参考作者彩蛋", "灰色空键帽，作者署名移至页脚。"]
   ];
   const correctionRows = document.getElementById("correction-rows");
   for (const values of corrections) {

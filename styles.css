@@ -16,7 +16,7 @@
     margin: 0;
     color: var(--ink);
     background: var(--page);
-    font-family: var(--sans);
+    font-family: var(--serif);
     line-height: 1.5;
   }
 
@@ -51,8 +51,7 @@
     --extra: #858883;
     --ring: #bb6e65;
     --scrollbar-thumb: #737d70;
-    --hand: "KaiTi", "STKaiti", "楷体", "Kaiti SC", "Noto Serif CJK SC", serif;
-    --sans: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    --serif: "SimSun", "宋体", "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", serif;
   }
 
   html {
@@ -180,7 +179,7 @@
 
 @layer components {
   h1 {
-    font-family: var(--hand);
+    font-family: var(--serif);
     font-size: 1.9375rem;
     font-weight: 400;
     letter-spacing: .1em;
@@ -212,7 +211,7 @@
   .zone-title {
     display: block;
     color: var(--zone-color);
-    font-family: var(--hand);
+    font-family: var(--serif);
     font-size: clamp(2.25rem, 1.5rem + 2dvw, 3.8rem);
     font-weight: 400;
     text-align: center;
@@ -251,20 +250,20 @@
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    gap: 2cqw;
-    padding: 7cqw 6cqw 0;
+    gap: 3cqw;
+    padding: 8cqw 7cqw 0;
   }
 
   .root-row {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: center;
-    column-gap: 1cqw;
+    column-gap: 2cqw;
   }
 
   .root {
-    font-family: var(--hand);
-    font-size: clamp(1.125rem, 18.5cqw, 1.75rem);
+    font-family: var(--serif);
+    font-size: clamp(1.0625rem, 17.5cqw, 1.625rem);
     line-height: 1.25;
     display: grid;
     place-items: center;
@@ -273,19 +272,27 @@
     font-weight: 400;
   }
 
+  .root-row:first-child {
+    grid-template-columns: 1.45fr repeat(3, minmax(0, 1fr));
+  }
+
   .root-row:first-child .root:first-child {
-    font-size: clamp(1.6rem, 28cqw, 2.5rem);
+    font-size: clamp(1.5rem, 26cqw, 2.375rem);
+  }
+
+  .root-text {
+    display: block;
+    inline-size: 1em;
+    text-align: left;
+    line-height: 1;
+    translate: var(--ink-x, 0) var(--ink-y, 0);
   }
 
   .glyph {
     display: block;
     inline-size: 1em;
     block-size: 1em;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 3.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    fill: currentColor;
     flex-shrink: 0;
   }
 
@@ -307,11 +314,12 @@
 
   .key-letter {
     color: var(--zone-color);
-    font-family: "Comic Sans MS", "Segoe Print", cursive;
+    font-family: var(--serif);
+    text-box: trim-both cap alphabetic;
   }
 
   .short-code {
-    font-family: var(--hand);
+    font-family: var(--serif);
     text-align: right;
   }
 
@@ -328,23 +336,6 @@
   .stroke-root .glyph {
     inline-size: 80%;
     block-size: 80%;
-    stroke-width: 3;
-  }
-
-  .stick-art {
-    position: absolute;
-    inset: 10% 17% 22%;
-    inline-size: 66%;
-    block-size: 68%;
-    image-rendering: pixelated;
-  }
-
-  .easter-caption {
-    position: absolute;
-    bottom: 11cqw;
-    right: 5cqw;
-    color: var(--muted);
-    font-size: clamp(.625rem, 8.2cqw, .8125rem);
   }
 
   .reading-guide p {
@@ -362,7 +353,7 @@
     border: 1px solid var(--ring);
     border-radius: 50%;
     color: var(--ink);
-    font-family: var(--hand);
+    font-family: var(--serif);
   }
 
   .scroll-hint {
@@ -447,9 +438,15 @@
   }
 
   td:first-child {
-    font-family: var(--hand);
+    font-family: var(--serif);
     font-size: 1.125rem;
     inline-size: 4.375rem;
+  }
+
+  .page-footer a {
+    min-block-size: 1.5rem;
+    display: inline-flex;
+    align-items: center;
   }
 
   .sources {
