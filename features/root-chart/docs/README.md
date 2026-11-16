@@ -14,6 +14,8 @@ unmount();
 
 每次挂载产生独立说明 ID 和尺寸监听，卸载函数清理该实例。键位数据结构保持版本、三排键位、五区、字根和轮廓定义，可供后续教程和练习直接读取。
 
+可通过容器的 aria-label 指定当前用途，例如课内参考字根表。默认名称带实例编号，帮助辅助技术区分同页多个区域。
+
 ## 配置绘图环境
 
 从仓库根目录执行以下命令。需要 Python 3.11，默认字体是本机 Windows 宋体。字体文件由使用者本机提供。
@@ -38,3 +40,5 @@ python -m venv .venv
 - 图源和页码见 [references/README.md](references/README.md)，字根取舍与已知疑点见 [勘误](勘误.md)，原始修改意见见 [nextstep.txt](../../../docs/history/nextstep.txt)。
 
 图像检查经验和绘图规则集中在局部 AGENTS.md，历史截图与原稿按版本保存在 Git 中。
+
+参考书的键盘裁图可用 `scripts/render_reference.py` 从归档 PDF 重新生成，输出在仓库 `.qa/references/`。

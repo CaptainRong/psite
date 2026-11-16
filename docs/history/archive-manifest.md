@@ -23,6 +23,8 @@
 | .qa/npm-cache、pdf-lib、__pycache__ | 本地依赖与缓存，验证后清理 |
 | .qa/modern-web-guidance-main、modern-web-guidance.tar.gz | 指南临时副本，长期保留官方来源链接 |
 | .qa/*commit.txt、kaiti-tag.txt、key-worker.txt、extract-guidance.py、search-guidance.cmd | 当轮操作草稿，经验进入维护指引 |
-| .qa/a11y.html、check.js、render-reference.py | 检查方法迁入 tools/qa 与功能脚本 |
+| .qa/a11y.html、check.js | 检查方法迁入 tools/qa |
+| .qa/render-reference.py | features/root-chart/scripts/render_reference.py |
+| .qa/R-wu-actual.png | 可从 R 键 SVG 定义重建的真实渲染图 |
 
 原始依据与人工调整进入 Git，重建产物默认写入 .qa。历史截图用于版本对照，网站运行资源由构建脚本单独收集。
