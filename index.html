@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="text-scale" content="scale">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="五笔 86 字根暗色速查表，按键盘布局呈现五区字根、笔画与一级简码。">
+  <title>五笔字根 · 86 版</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="wubi-data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="heading">
+      <h1>五笔字根</h1>
+      <span class="edition">86 版</span>
+    </div>
+    <a class="record-link" href="#proofreading">校对记录 <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <p class="scroll-hint" id="scroll-hint" hidden>左右滑动，查看完整键盘 <span aria-hidden="true">⟷</span></p>
+    <section class="chart-scroll" aria-label="五笔 86 字根键盘" aria-describedby="reading-guide scroll-hint" tabindex="0">
+      <div class="chart-canvas">
+        <div class="top-labels" aria-hidden="true">
+          <span class="zone-title" data-zone="left">撇区</span>
+          <span class="zone-title" data-zone="dot">捺区</span>
+        </div>
+        <div id="keyboard"></div>
+        <div class="bottom-labels" aria-hidden="true"><span class="zone-title" data-zone="fold">折区</span></div>
+      </div>
+    </section>
+
+    <div class="reading-guide" id="reading-guide">
+      <p>每键首项是键名，左下是键位，右下是一级简码。<span class="stroke-ring" aria-hidden="true">一</span>圈内为笔画字根。</p>
+      <a href="五笔.jpg" target="_blank" rel="noopener">查看原图 <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <details class="proofreading" id="proofreading">
+      <summary>校对记录与资料 <span class="expand-icon" aria-hidden="true">＋</span></summary>
+      <div class="proofreading-content">
+        <p>已按五笔 86 版核对 25 个字根键，一级简码与 Rime 码表一致。特殊片形以独立笔画重绘，保留原图五区配色。</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-labelledby="correction-caption">
+          <table>
+            <caption id="correction-caption">主要字形校对</caption>
+            <thead><tr><th scope="col">键位</th><th scope="col">原图中的辨识点</th><th scope="col">页面处理</th></tr></thead>
+            <tbody id="correction-rows"></tbody>
+          </table>
+        </div>
+        <p class="document-link"><a href="勘误.md">阅读全部逐键记录 ↗</a></p>
+        <p class="sources">核对依据见<a href="https://www.ecsponline.com/yz/BFBE7E79C71D94CF7A1B39A961EEEF1F4000.pdf" target="_blank" rel="noopener">科学出版社教程</a>、<a href="https://www.mzwu.com/article.php?id=4651" target="_blank" rel="noopener">86 版字根图</a>与<a href="https://github.com/rime/rime-wubi/blob/master/wubi86.dict.yaml" target="_blank" rel="noopener">Rime 五笔码表</a>。</p>
+      </div>
+    </details>
+  </main>
+  <footer class="page-footer"><span>一 · 丨 · 丿 · 丶 · 乙</span><span>五笔 86</span></footer>
+  <noscript><p class="no-script">请在浏览器中启用 JavaScript 以显示字根表，也可以<a href="五笔.jpg">查看原图</a>。</p></noscript>
+</body>
+</html>
